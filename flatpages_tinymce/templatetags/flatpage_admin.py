@@ -7,7 +7,10 @@ import tinymce.settings
 from flatpages_tinymce import settings as local_settings
 
 from django import template
-from django.core.urlresolvers import reverse
+try:
+    from django.core.urlresolvers import reverse
+except ImportError: # django >= 1.8
+    from django.shortcuts import reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 

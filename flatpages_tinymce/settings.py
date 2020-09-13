@@ -5,7 +5,10 @@ USE_ADMIN_AREA_TINYMCE = getattr(settings, "FLATPAGES_TINYMCE_ADMIN", True)
 USE_FRONTED_TINYMCE = getattr(settings, "FLATPAGES_TINYMCE_FRONTEND", True)
 
 USE_TEMPLATE_DROPDOWN = getattr(settings, "FLATPAGES_USE_TEMPLATE_DROPDOWN", True)
-TEMPLATE_DIR = getattr(settings, "FLATPAGES_TEMPLATE_DIR", os.path.join(settings.TEMPLATE_DIRS[0], 'flatpages'))
+try:
+    TEMPLATE_DIR = getattr(settings, "FLATPAGES_TEMPLATE_DIR", os.path.join(settings.TEMPLATE_DIRS[0], 'flatpages'))
+except AttributeError: # django >= 1.8
+    TEMPLATE_DIR = getattr(settings, "FLATPAGES_TEMPLATE_DIR", os.path.join(settings.TEMPLATES[0]["DIRS"][0], 'flatpages'))
 TEMPLATE_FILES_REGEXP = getattr(settings, 'FLATPAGES_ADMIN_REGEXP', r'.*\.d?html?')
 
 DIV_PREFIX = getattr(settings, 'FLATPAGES_DIV_PREFIX', "django_staticpages_edit")
